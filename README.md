@@ -16,6 +16,7 @@ real-time admin dashboard.
 
 ### 📊 Admin Dashboard
 ![Admin Dashboard](screenshots/dashboard.png)
+![Admin Dashboard](screenshots/dashboard1.png)
 
 ### 👤 Student Dashboard
 ![Student Page](screenshots/student.png)
