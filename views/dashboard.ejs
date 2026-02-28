@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/header') %>
+</head>
+<body>
+
+<%- include('partials/navbar') %>
+
+<div class="container-fluid px-4 py-4">
+
+  <!-- Page Title -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h4 class="mb-0 fw-bold">Analytics Dashboard</h4>
+      <small class="text-muted">Real-time event tracking overview</small>
+    </div>
+    <a href="/export" class="btn btn-success btn-sm">
+      <i class="bi bi-download me-1"></i>Export CSV
+    </a>
+  </div>
+
+  <!-- ── STAT CARDS ─────────────────────────── -->
+  <div class="row g-3 mb-4">
+
+    <!-- Total Users -->
+    <div class="col-md-3">
+      <div class="card stat-card p-3">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <div class="text-muted small mb-1">Total Users</div>
+            <div class="fs-3 fw-bold"><%= totalUsers %></div>
+          </div>
+          <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+            <i class="bi bi-people-fill"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Active Users -->
+    <div class="col-md-3">
+      <div class="card stat-card p-3">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <div class="text-muted small mb-1">Active Today</div>
+            <div class="fs-3 fw-bold"><%= dailyActive %></div>
+          </div>
+          <div class="stat-icon bg-success bg-opacity-10 text-success">
+            <i class="bi bi-activity bi-lightning-fill"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Today Events -->
+    <div class="col-md-3">
+      <div class="card stat-card p-3">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <div class="text-muted small mb-1">Events Today</div>
+            <div class="fs-3 fw-bold"><%= todayEvents %></div>
+          </div>
+          <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+            <i class="bi bi-lightning-fill"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Events -->
+    <div class="col-md-3">
+      <div class="card stat-card p-3">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <div class="text-muted small mb-1">Total Events</div>
+            <div class="fs-3 fw-bold"><%= totalEvents %></div>
+          </div>
+          <div class="stat-icon bg-danger bg-opacity-10 text-danger">
+            <i class="bi bi-bar-chart-fill"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- ── END STAT CARDS ──────────────────────── -->
+
+
+  <!-- ── CHARTS ROW ─────────────────────────── -->
+  <div class="row g-3 mb-4">
+
+    <!-- Bar Chart — Daily Activity -->
+    <div class="col-md-8">
+      <div class="card chart-card p-3">
+        <h6 class="fw-bold mb-3">
+          <i class="bi bi-bar-chart me-2 text-primary"></i>
+          Daily Activity — Last 7 Days
+        </h6>
+        <canvas id="barChart" height="575"></canvas>
+      </div>
+    </div>
+
+    <!-- Pie Chart — Event Distribution -->
+    <div class="col-md-4">
+      <div class="card chart-card p-3">
+        <h6 class="fw-bold mb-3">
+          <i class="bi bi-pie-chart me-2 text-danger"></i>
+          Event Distribution
+        </h6>
+        <canvas id="pieChart" height="100"></canvas>
+      </div>
+    </div>
+
+  </div>
+  <!-- ── END CHARTS ROW ─────────────────────── -->
+
+
+  <!-- ── BOTTOM ROW ────────────────────────── -->
+  <div class="row g-3">
+
+    <!-- Top 10 Active Users -->
+    <div class="col-md-7">
+      <div class="card table-card p-3">
+        <h6 class="fw-bold mb-3">
+          <i class="bi bi-trophy me-2 text-warning"></i>
+          Top 10 Active Users
+        </h6>
+        <div class="table-responsive">
+          <table class="table table-hover table-sm align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Events</th>
+                <th>Last Active</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% topUsers.forEach((u, index) => { %>
+              <tr>
+                <td class="text-muted"><%= index + 1 %></td>
+                <td>
+                  <i class="bi bi-person-circle me-1 text-muted"></i>
+                  <%= u.name %>
+                </td>
+                <td>
+                  <span class="badge badge-role-<%= u.role %>">
+                    <%= u.role %>
+                  </span>
+                </td>
+                <td><strong><%= u.total_events %></strong></td>
+                <td class="text-muted small">
+                  <%= new Date(u.last_active).toLocaleDateString() %>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Events Feed -->
+    <div class="col-md-5">
+      <div class="card table-card p-3">
+        <h6 class="fw-bold mb-3">
+          <i class="bi bi-clock-history me-2 text-info"></i>
+          Recent Events
+        </h6>
+        <% recentEvents.forEach(event => { %>
+        <div class="d-flex align-items-start mb-2 pb-2 border-bottom">
+          <span class="activity-dot bg-primary mt-1"></span>
+          <div class="flex-grow-1">
+            <div class="small fw-semibold"><%= event.user_name %></div>
+            <div class="small text-muted">
+              <%= event.event_type %> → 
+              <code class="small"><%= event.route %></code>
+            </div>
+          </div>
+          <div class="small text-muted ms-2">
+            <%= new Date(event.timestamp).toLocaleTimeString() %>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+  </div>
+  <!-- ── END BOTTOM ROW ─────────────────────── -->
+
+</div>
+
+<!-- ── CHART.JS ──────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // ── Pass EJS data into JavaScript ────────────
+  const dailyLabels = <%- JSON.stringify(dailyActivity.map(d => d.date)) %>;
+  const dailyData   = <%- JSON.stringify(dailyActivity.map(d => d.total)) %>;
+
+  const pieLabels   = <%- JSON.stringify(eventDistribution.map(e => e.event_type)) %>;
+  const pieData     = <%- JSON.stringify(eventDistribution.map(e => e.total)) %>;
+
+  // ── Bar Chart ─────────────────────────────────
+  const barCtx = document.getElementById('barChart').getContext('2d');
+  new Chart(barCtx, {
+    type: 'bar',
+    data: {
+      labels: dailyLabels,
+      datasets: [{
+        label: 'Total Events',
+        data: dailyData,
+        backgroundColor: 'rgba(13, 110, 253, 0.7)',
+        borderColor: 'rgba(13, 110, 253, 1)',
+        borderWidth: 1,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(0,0,0,0.05)' }
+        },
+        x: {
+          grid: { display: false }
+        }
+      }
+    }
+  });
+
+  // ── Pie Chart ─────────────────────────────────
+  const pieCtx = document.getElementById('pieChart').getContext('2d');
+  new Chart(pieCtx, {
+    type: 'doughnut',
+    data: {
+      labels: pieLabels,
+      datasets: [{
+        data: pieData,
+        backgroundColor: [
+          '#0d6efd', '#dc3545', '#198754',
+          '#ffc107', '#0dcaf0', '#6f42c1', '#fd7e14'
+        ],
+        borderWidth: 2,
+        borderColor: '#fff'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { font: { size: 11 } }
+        }
+      }
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusPulse — Real-Time Analytics</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body { background: #f0f2f5; }
+
+    .hero {
+      background: linear-gradient(135deg, #0d6efd 0%, #6f42c1 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
+    .hero-badge {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(10px);
+      transition: transform 0.2s;
+    }
+
+    .feature-card:hover { transform: translateY(-4px); }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .btn-hero-primary {
+      background: white;
+      color: #0d6efd;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-hero-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      color: #0d6efd;
+    }
+
+    .btn-hero-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.6);
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .btn-hero-outline:hover {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border-color: white;
+    }
+
+    .stat-pill {
+      background: rgba(255,255,255,0.15);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <!-- Left Side -->
+      <div class="col-lg-6 mb-5 mb-lg-0">
+
+        <div class="hero-badge">
+          <i class="bi bi-lightning-fill me-1"></i>
+          Real-Time Event Analytics
+        </div>
+
+        <h1>Campus<span style="opacity:0.8">Pulse</span></h1>
+
+        <p class="fs-5 mb-4" style="opacity:0.85">
+          Track every user action, aggregate events in real-time,
+          and visualize campus activity through a powerful
+          analytics dashboard.
+        </p>
+
+        <!-- Stats Row -->
+        <div class="mb-4">
+          <span class="stat-pill">
+            <i class="bi bi-activity me-1"></i>Live Tracking
+          </span>
+          <span class="stat-pill">
+            <i class="bi bi-clock me-1"></i>30s Batch Processing
+          </span>
+          <span class="stat-pill">
+            <i class="bi bi-shield-check me-1"></i>Role Based Access
+          </span>
+          <span class="stat-pill">
+            <i class="bi bi-download me-1"></i>CSV Export
+          </span>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="/auth/register" class="btn-hero-primary btn">
+            <i class="bi bi-rocket-takeoff me-2"></i>Get Started
+          </a>
+          <a href="/auth/login" class="btn-hero-outline btn">
+            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Right Side — Feature Cards -->
+      <div class="col-lg-6">
+        <div class="row g-3">
+
+          <div class="col-6">
+            <div class="feature-card">
+              <div class="feature-icon">📡</div>
+              <h6 class="fw-bold mb-1">Auto Event Logging</h6>
+              <div class="small" style="opacity:0.8">
+                Every user action tracked automatically via middleware
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="feature-card">
+              <div class="feature-icon">⚙️</div>
+              <h6 class="fw-bold mb-1">Batch Processing</h6>
+              <div class="small" style="opacity:0.8">
+                Cron aggregates events every 30 seconds
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="feature-card">
+              <div class="feature-icon">📊</div>
+              <h6 class="fw-bold mb-1">Live Dashboard</h6>
+              <div class="small" style="opacity:0.8">
+                Charts and stats updated in near real-time
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="feature-card">
+              <div class="feature-icon">📤</div>
+              <h6 class="fw-bold mb-1">CSV Export</h6>
+              <div class="small" style="opacity:0.8">
+                Download filtered reports by date range
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
