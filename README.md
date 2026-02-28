@@ -65,7 +65,7 @@ real-time admin dashboard.
 
 ### 1. Clone the repo
 \`\`\`bash
-git clone https://github.com/YOUR_USERNAME/campuspulse.git
+git clone https://github.com/premkumar2005/campuspulse.git
 cd campuspulse
 \`\`\`
 
